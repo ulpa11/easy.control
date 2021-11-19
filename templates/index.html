@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy.Control Home Automation web application</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Rajdhani:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">easy.<span class="accent">control</span></div>
+            <div class="login-btn">log in</div.
+        </div>
+    </header>
+    <div>
+
+    </div>
+    <main>
+        <div class="container">
+            <div class="your-device">
+                <h2>your devices</h2>
+                <hr>
+                <div class="devices"></div>
+            </div>
+            <div class="add-device">
+                <h2>add devices</h2>
+                <hr>
+                <form action="">
+                    <label>Device</label>
+                    <br>
+                    <input id="device-name" type="text" placeholder="Enter your device here">
+
+                    <label>Room</label>
+                    <br>
+                    <input id="device-room" type="text" placeholder="Enter the room here">
+
+                    <label>MAC Address of Device</label>
+                    <br>
+                    <input id="device" type="text" placeholder="Enter MAC Address of Device">
+
+                    <label>Something</label>
+                    <br>
+                    <input type="text" placeholder="Enter Something here">
+
+                    <button>Add Device</button>
+
+
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>This project is build by: Ashutosh Raghuwanshi, Avani Shrivastava, Devendra Patidar</p>
+        </div>
+    </footer>
+    <script>
+        const devices = document.querySelector('.devices')
+const deviceList = [
+
+    { id: 0, name: 'light', room: 'living room', state: 1 },
+    { id: 1, name: 'fan', room: 'living room', state: 0 },
+    { id: 2, name: 'AC', room: 'living room', state: 1 },
+    { id: 3, name: 'lamp', room: 'living room', state: 0 }
+]
+let renderDevices = ''
+deviceList.forEach(i => {
+    if (i.state) {
+        renderDevices += `
+            <div class="device-tile-on" id="${i.id}">
+                <h3>${i.name}</h3>
+                <h4>${i.room}</h4>
+                <div class="toggle-switch">
+                    <div class="toggler"></div>
+                </div>
+            </div>
+            `
+    } else {
+        renderDevices += `
+            <div class="device-tile-off" id="${i.id}">
+                <h3>${i.name}</h3>
+                <h4>${i.room}</h4>
+                <div class="toggle-switch">
+                    <div class="toggler"></div>
+                </div>
+            </div>
+            `
+    }
+
+});
+
+devices.innerHTML = renderDevices
+
+const toggleSwitch = document.querySelectorAll('.toggle-switch')
+
+toggleSwitch.forEach(e => {
+    e.addEventListener('click', function() {
+        const num = (e.parentElement.id)
+        const current = deviceList[num].state
+        deviceList[num].state = !current
+        const qwe = e.parentElement.classList
+        console.log(qwe)
+        console.log(deviceList[num].state)
+        if (qwe.contains('device-tile-on')) {
+            qwe.remove('device-tile-on')
+            qwe.add('device-tile-off')
+        } else {
+            qwe.remove('device-tile-off')
+            qwe.add('device-tile-on')
+        }
+    })
+});
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,277 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* typography----------- */
+
+html {
+    font-size: 10px;
+}
+
+body {
+    font-size: 1.8rem;
+    font-family: 'poppins', sans-serif;
+}
+
+.logo {
+    font-family: 'rajdhani', sans-serif;
+    font-weight: 500;
+    font-size: 3.6rem;
+}
+
+.accent {
+    color: #006AFF;
+}
+
+.login-btn {
+    text-transform: capitalize;
+    font-weight: 500;
+}
+
+h2 {
+    font-size: 2.4rem;
+    font-weight: 400;
+    text-transform: capitalize;
+}
+
+h3 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+h4 {
+    font-size: 1.6rem;
+    font-weight: 400;
+    text-transform: capitalize;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #04122F;
+}
+
+
+/* layout---------------- */
+
+.container {
+    max-width: 1280px;
+    margin: 0 40px;
+}
+
+header {
+    background-color: #CCE1FF;
+    border-radius: 0 0 16px 16px;
+}
+
+header .container {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-btn {
+    background-color: #006AFF;
+    color: white;
+    padding: 8px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+main .container {
+    margin: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.your-device {
+    width: 65%;
+    min-height: 400px;
+    height: calc(100vh - 200px);
+    background-color: #E5F0FF;
+    border-radius: 16px;
+    margin: 0 40px 0 0;
+    padding: 40px 40px;
+    overflow: auto;
+}
+
+.devices {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 20px;
+    row-gap: 20px;
+    margin: 20px 0;
+}
+
+.add-device {
+    min-height: 400px;
+    height: calc(100vh - 200px);
+    background-color: #E5F0FF;
+    border-radius: 16px;
+    padding: 40px 40px;
+    overflow: auto;
+}
+
+.add-device::-webkit-scrollbar {
+    width: 10px;
+    background-color: #E5F0FF;
+    border-radius: 0 5px 16px 0;
+}
+
+.add-device::-webkit-scrollbar-thumb {
+    width: 10px;
+    background-color: #CCE1FF;
+    border-radius: 8px;
+}
+
+.your-device::-webkit-scrollbar {
+    width: 10px;
+    background-color: #E5F0FF;
+    border-radius: 0 5px 16px 0;
+}
+
+.your-device::-webkit-scrollbar-thumb {
+    width: 10px;
+    background-color: #CCE1FF;
+    border-radius: 8px;
+}
+
+form {
+    margin: 20px 0;
+}
+
+input {
+    width: 100%;
+    height: 30px;
+    border: none;
+    border-radius: 8px;
+    padding: 0 8px;
+    font-family: 'poppins', sans-serif;
+    margin-bottom: 16px;
+}
+
+button {
+    background-color: #006AFF;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'poppins', sans-serif;
+    cursor: pointer;
+}
+
+
+/* ON----------------------- */
+
+.device-tile-on {
+    color: white;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 160px;
+    min-height: 100px;
+    border: 2px solid #006AFF;
+    border-radius: 8px;
+    background-color: #006AFF;
+    transition: all 500ms;
+}
+
+.device-tile-on .toggler {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    width: 16px;
+    aspect-ratio: 1/1;
+    background-color: white;
+    border-radius: 50%;
+}
+
+
+/* OFF---------------------- */
+
+.device-tile-off {
+    color: #04122F;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 160px;
+    min-height: 100px;
+    border: 2px solid #006AFF;
+    border-radius: 8px;
+    transition: all 500ms;
+}
+
+.device-tile-off .toggler {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 16px;
+    aspect-ratio: 1/1;
+    background-color: #006AFF;
+    border-radius: 50%;
+}
+
+.toggle-switch {
+    width: 40px;
+    height: 20px;
+    border: solid 2px #04122F;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+}
+
+
+/* add device----------------------------------- */
+
+.add-device {
+    width: 35%;
+    min-height: 400px;
+    height: calc(100vh - 200px);
+    background-color: #E5F0FF;
+    border-radius: 16px;
+}
+
+footer {
+    background-color: #CCE1FF;
+    border-radius: 16px 16px 0 0;
+}
+
+footer .container {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+@media (max-width:1000px) {
+    main .container {
+        flex-direction: column;
+    }
+    .your-device {
+        width: 100%;
+        margin: 0 0 40px 0;
+    }
+    .add-device {
+        width: 100%;
+    }
+    .device-tile-on {
+        width: 200px;
+    }
+    .device-tile-off {
+        width: 200px;
+    }
+    .devices {
+        justify-content: center;
+    }
+}
