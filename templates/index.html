@@ -65,60 +65,110 @@
     </footer>
     <script>
         const devices = document.querySelector('.devices')
-const deviceList = [
+let deviceList = []
 
-    { id: 0, name: 'light', room: 'living room', state: 1 },
-    { id: 1, name: 'fan', room: 'living room', state: 0 },
-    { id: 2, name: 'AC', room: 'living room', state: 1 },
-    { id: 3, name: 'lamp', room: 'living room', state: 0 }
-]
-let renderDevices = ''
-deviceList.forEach(i => {
-    if (i.state) {
-        renderDevices += `
-            <div class="device-tile-on" id="${i.id}">
-                <h3>${i.name}</h3>
-                <h4>${i.room}</h4>
+// rendering function which renders the data of API on display
+function render() {
+    let renderDevices = ''
+    deviceList.forEach(i => {
+        if (i.device_status) {
+            renderDevices += `
+            <div class="device-tile-on device-tile" id="${i.id}">
+                <h3>${i.device_name}</h3>
+                <h4>${i.device_room}</h4>
                 <div class="toggle-switch">
                     <div class="toggler"></div>
                 </div>
             </div>
             `
-    } else {
-        renderDevices += `
-            <div class="device-tile-off" id="${i.id}">
-                <h3>${i.name}</h3>
-                <h4>${i.room}</h4>
-                <div class="toggle-switch">
-                    <div class="toggler"></div>
-                </div>
-            </div>
-            `
-    }
-
-});
-
-devices.innerHTML = renderDevices
-
-const toggleSwitch = document.querySelectorAll('.toggle-switch')
-
-toggleSwitch.forEach(e => {
-    e.addEventListener('click', function() {
-        const num = (e.parentElement.id)
-        const current = deviceList[num].state
-        deviceList[num].state = !current
-        const qwe = e.parentElement.classList
-        console.log(qwe)
-        console.log(deviceList[num].state)
-        if (qwe.contains('device-tile-on')) {
-            qwe.remove('device-tile-on')
-            qwe.add('device-tile-off')
         } else {
-            qwe.remove('device-tile-off')
-            qwe.add('device-tile-on')
+            renderDevices += `
+            <div class="device-tile-off device-tile" id="${i.id}">
+                <h3>${i.device_name}</h3>
+                <h4>${i.device_room}</h4>
+                <div class="toggle-switch">
+                    <div class="toggler"></div>
+                </div>
+            </div>
+            `
         }
-    })
-});
+    });
+    devices.innerHTML = renderDevices
+}
+
+// function for updating the value in API and posting and fetching data from API
+
+function main() {
+    // fetching the list of devices
+    fetch('https://easy---control.herokuapp.com/deviceapi/DeviceApi/')
+        .then(response => response.json())
+        .then(data => {
+            deviceList = data
+            console.log(deviceList)
+            render()
+
+            const toggleSwitch = document.querySelectorAll('.toggle-switch')
+            toggleSwitch.forEach(e => {
+                e.addEventListener('click', function() {
+                    const renderID = (e.parentElement.id)
+                    const current = deviceList[renderID - 1]
+                    const update = {
+                        id: current.id,
+                        device_id: current.device_id,
+                        device_name: current.device_name,
+                        device_room: current.device_room,
+                        device_status: current.device_status ? 0 : 1,
+                    }
+
+                    let url = `https://easy---control.herokuapp.com/deviceapi/DeviceApi/${renderID}/`
+                    fetch(url, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(update),
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Success:', data)
+                            main()
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
+                })
+            })
+        })
+}
+
+main()
+
+setInterval(() => {
+    fetch('https://easy---control.herokuapp.com/deviceapi/DeviceApi/')
+        .then(response => response.json())
+        .then(data => {
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].device_status != deviceList[i].device_status) {
+                    main()
+                }
+            }
+        })
+}, 5000);
+
+
+
+// login form
+
+const loginBtn = document.querySelector('.login-btn')
+const overlay = document.querySelector('.overlay')
+loginBtn.addEventListener('click', function() {
+    overlay.style.display = "flex"
+})
+
+const closeBtn = document.querySelector('.close-btn')
+closeBtn.addEventListener('click', function() {
+    overlay.style.display = "none"
+})
     </script>
 </body>
 
